@@ -35,6 +35,8 @@ void terminateLoading(void);
 pid_t frk(void);
 pid_t wt(int *status);
 void excvp(const char *command, char *const argv[]);
+void pip(int *pds);
+void dp2(int fd1, int fd2);
 void gcwd(char *buf, size_t size);
 void *mloc(size_t size);
 void printbanner(void);

@@ -47,6 +47,23 @@ pid_t wt(int *status){
     return res;
 }
 
+//pipe wrapper
+void pip(int *pds){
+
+    if(pipe(pds) < 0){
+        perror(R "pipe creation FAIL" RST);
+        exit(1);
+    }
+}
+
+//dup2 wrapper
+void dp2(int fd1, int fd2){
+    if(dup2(fd1, fd2) < 0){
+        perror(R "dup FAIL" RST);
+        exit(1);
+    }
+}
+
 
 
 //getcwd wrapper
