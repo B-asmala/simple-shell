@@ -103,22 +103,16 @@ void chill_pipe(char *line){
             if(cmdc < pipesNum)
                 //if not last process, redirect output to the write end of this pipe
                 dp2(pipefds[cmdc * 2 + 1], STDOUT_FILENO);
-            
-            //close all pipe ends for this process
-            for(int i = 0; i < 2 * pipesNum; i ++)
-                close(pipefds[i]);
-            
-        }else{ //parent
-            //close pipe ends not needed anymore, to return EOF
-            if(cmdc > 0)
-                close(pipefds[(cmdc - 1) * 2]);
-            
-            if(cmdc < pipesNum)
-                close(pipefds[cmdc * 2 + 1]);
-            
-        }
 
-        //both
+        }
+        //parent & child
+        //close pipe ends not needed anymore, to return EOF
+        if(cmdc > 0)
+            close(pipefds[(cmdc - 1) * 2]);
+            
+        if(cmdc < pipesNum)
+            close(pipefds[cmdc * 2 + 1]);
+            
         args = chill_split_command(token);
         chill_launch(args, pid);
 
